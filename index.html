@@ -1,0 +1,92 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing URL Awareness Checker</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eaf1f8;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            width: 450px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #bbb;
+        }
+        h1 {
+            color: #174b78;
+        }
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        button {
+            background: #174b78;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Phishing URL Awareness Checker</h1>
+    <p>Check a URL for common warning signs</p>
+
+    <input type="text" id="url" placeholder="Enter website URL">
+
+    <br>
+    <button onclick="checkURL()">CHECK URL</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function checkURL() {
+    let url = document.getElementById("url").value.trim();
+    let result = document.getElementById("result");
+
+    if (url === "") {
+        result.innerHTML = "Please enter a URL.";
+        return;
+    }
+
+    let warnings = [];
+
+    if (url.includes("@"))
+        warnings.push("Contains an @ symbol.");
+
+    if (url.length > 100)
+        warnings.push("URL is unusually long.");
+
+    if (url.startsWith("http://"))
+        warnings.push("Uses HTTP instead of HTTPS.");
+
+    if (warnings.length === 0) {
+        result.innerHTML = "<h3>No listed warning signs found.</h3><p>This does not prove the website is safe.</p>";
+    } else {
+        result.innerHTML = "<h3>Warning signs found:</h3><ul>" +
+            warnings.map(w => "<li>" + w + "</li>").join("") +
+            "</ul><b>Review this URL carefully!</b>";
+    }
+}
+</script>
+
+</body>
+</html>
+```
